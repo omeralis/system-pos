@@ -3,14 +3,28 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
+import { IconsModule } from './shared/icons/icons.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
+    NewInvoiceComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    IconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

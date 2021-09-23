@@ -1,1 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+body{
+    background-color: f9f9f9 !important;
+}
+.content{
+    padding: 1rem;
+    padding-left: 2rem;
+}
+.footer{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 6.3rem;
+    z-index: 1030;
+}
+.toast {
+    opacity: 1;
+  }
+  .home-section {
+	position: relative;
+	background: #f9f9f9;
+	min-height: 100vh;
+	top: 0;
+	left: 78px;
+	width: calc(100% - 78px);
+	transition: all 0.5s ease;
+	z-index: 2;
+	.text {
+		display: inline-block;
+		color: #11101d;
+		font-size: 25px;
+		font-weight: 500;
+		margin: 18px;
+	}
+}  
+/*** start overflow Scroll ***/
+.overflowScroll {
+    height: 64vh;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #eef0f9;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b3b0b0;
+    }
+/*** End  overflow Scroll ***/
+.content-table{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    color: #4a4747;
+    line-height: 23px;
+    margin-bottom: 0px;
+    padding: 0 !important;
+    height: 50vh !important;
+    overflow-x: scroll;
+    text-align: justify;
+}
+thead tr {
+    position: sticky;
+    top: 0;
+    height: 50px;
+    background: white;
+    z-index: 1;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #4a4a4a0d !important;
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServicesService } from './services/services.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'POS';
+  constructor(private appService: ServicesService) {}
+  // getClasses() {
+  //   const classes = {
+  //     'pinned-sidebar': this.appService.getSidebarStat().isSidebarPinned,
+  //     'toggeled-sidebar': this.appService.getSidebarStat().isSidebarToggeled
+  //   }
+  //   return classes;
+  // }
+  // toggleSidebar() {
+  //   this.appService.toggleSidebar();
+  // }
 }
