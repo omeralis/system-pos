@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +12,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
 import { IconsModule } from './shared/icons/icons.module';
+import { GroupsComponent } from './Page/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,18 @@ import { IconsModule } from './shared/icons/icons.module';
     SidebarComponent,
     NavbarComponent,
     FooterComponent,
-    NewInvoiceComponent
+    NewInvoiceComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    IconsModule
+    IconsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
