@@ -3,6 +3,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService } from 'src/app/services/services.service';
 import {FormBuilder, FormControl, FormGroup, Validators, FormsModule } from "@angular/forms";
 import { Groups } from 'src/app/shared/groups/groups';
+import { AlertifyServiceService } from 'src/app/services/Alertify/alertify-service.service';
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
@@ -16,8 +17,8 @@ export class GroupsComponent implements OnInit {
   result:any=[];
   UpdataForm: FormGroup | any;
   isLoadingSave: boolean = false;
-
-  constructor(config: NgbModalConfig, private modalService: NgbModal, public groupService: ServicesService , private formBuilder: FormBuilder,) {
+  responseMessage:any;
+  constructor(config: NgbModalConfig, private modalService: NgbModal, public groupService: ServicesService , private formBuilder: FormBuilder,private alertify: AlertifyServiceService,) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -79,6 +80,9 @@ export class GroupsComponent implements OnInit {
         console.log(error);
         this.isLoadingSave = false;
       },
+      ()=>{
+        this.alertify.success("add success");
+      }
     )
   }
 editGroup(){

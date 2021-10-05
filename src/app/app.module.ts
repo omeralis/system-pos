@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
 import { IconsModule } from './shared/icons/icons.module';
 import { GroupsComponent } from './Page/groups/groups.component';
+import { ToastsComponent } from './shared/toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { GroupsComponent } from './Page/groups/groups.component';
     NavbarComponent,
     FooterComponent,
     NewInvoiceComponent,
-    GroupsComponent
+    GroupsComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,
