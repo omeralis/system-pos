@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService } from 'src/app/services/services.service';
 import {FormBuilder, FormControl, FormGroup, Validators, FormsModule } from "@angular/forms";
-import { Groups } from 'src/app/shared/groups/groups';
+import { Groups } from 'src/app/shared/model/groups/groups';
 import { AlertifyServiceService } from 'src/app/services/Alertify/alertify-service.service';
 @Component({
   selector: 'app-groups',

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService } from 'src/app/services/services.service';
-import { ITEMS } from 'src/app/shared/Items/items';
+import { ITEMS } from 'src/app/shared/model/Items/items';
 import {FormBuilder, FormControl, FormGroup, Validators, FormsModule } from "@angular/forms";
-import { Groups } from 'src/app/shared/groups/groups';
+import { Groups } from 'src/app/shared/model/groups/groups';
 
 @Component({
   selector: 'app-items',

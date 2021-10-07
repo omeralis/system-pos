@@ -65,7 +65,7 @@ body{
   }
   .sidebarCollapse{
 	z-index: 1024;
-    position: relative;
+    position: fixed;
     left: 8rem;
 	top: 0.5rem;
     width: 2%;

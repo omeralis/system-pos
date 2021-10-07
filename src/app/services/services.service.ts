@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Groups } from '../shared/groups/groups';
-import { ITEMS } from '../shared/Items/items';
-import { SUPPLIERS } from '../shared/supplier/supplier';
+import { Groups } from '../shared/model/groups/groups';
+import { ITEMS } from '../shared/model/Items/items';
+import { SUPPLIERS } from '../shared/model/supplier/supplier';
+import { CUSTOMERS } from '../shared/model/customers/customers';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class ServicesService {
     supplierRoute:{
       supplier: 'supplier',
       edit: 'editsupplier'
+    },
+    customerRoute:{
+      customer: 'customer',
+      edit: 'editcustomer'
     }
   }
 
@@ -55,7 +60,7 @@ export class ServicesService {
   EditItem(dataItem: ITEMS) {
     return this.http.post(this.url + this.ApiRoutes.itemRoute.edit, dataItem);
   }
- // item
+ // SUPPLIERS
  getSupplier() {
   return this.http.get(this.url + this.ApiRoutes.supplierRoute.supplier);
 }
@@ -66,19 +71,16 @@ postSupplier(SupplierData: SUPPLIERS) {
 EditSupplier(SupplierData: SUPPLIERS) {
   return this.http.post(this.url + this.ApiRoutes.supplierRoute.edit, SupplierData);
 }
-  // toggleSidebar() {
-  //   this.isSidebarToggeled = !this.isSidebarToggeled;
-  // }
+// CUSTOMERS
+getCustomer() {
+  return this.http.get(this.url + this.ApiRoutes.customerRoute.customer);
+}
+postCustomer(CustomerData: CUSTOMERS) {
+  return this.http.post(this.url + this.ApiRoutes.customerRoute.customer, CustomerData);
+}
 
-  // toggleSidebarPin() {
-  //   this.isSidebarPinned = !this.isSidebarPinned;
-  // }
-
-  // getSidebarStat() {
-  //   return {
-  //     isSidebarPinned: this.isSidebarPinned,
-  //     isSidebarToggeled: this.isSidebarToggeled
-  //   }
-  // }
+EditCustomer(CustomerData: CUSTOMERS) {
+  return this.http.post(this.url + this.ApiRoutes.customerRoute.edit, CustomerData);
+}
 
 }

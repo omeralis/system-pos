@@ -17,6 +17,7 @@ import { ToastsComponent } from './shared/toasts/toasts.component';
 import { ItemsComponent } from './Page/Items/items.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SuppliersComponent } from './Page/suppliers/suppliers.component';
+import { CustomersComponent } from './Page/customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SuppliersComponent } from './Page/suppliers/suppliers.component';
     GroupsComponent,
     ToastsComponent,
     ItemsComponent,
-    SuppliersComponent
+    SuppliersComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
