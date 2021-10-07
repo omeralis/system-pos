@@ -4,6 +4,7 @@ import { Groups } from '../shared/model/groups/groups';
 import { ITEMS } from '../shared/model/Items/items';
 import { SUPPLIERS } from '../shared/model/supplier/supplier';
 import { CUSTOMERS } from '../shared/model/customers/customers';
+import { STORE } from '../shared/model/store/store';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class ServicesService {
     customerRoute:{
       customer: 'customer',
       edit: 'editcustomer'
+    },
+    storeRoute:{
+      store: 'store',
+      edit: 'editstore'
     }
   }
 
@@ -82,5 +87,15 @@ postCustomer(CustomerData: CUSTOMERS) {
 EditCustomer(CustomerData: CUSTOMERS) {
   return this.http.post(this.url + this.ApiRoutes.customerRoute.edit, CustomerData);
 }
+//Store
+getStore() {
+  return this.http.get(this.url + this.ApiRoutes.storeRoute.store);
+}
+postStore(StoreData: STORE) {
+  return this.http.post(this.url + this.ApiRoutes.storeRoute.store, StoreData);
+}
 
+EditStore(StoreData: STORE) {
+  return this.http.post(this.url + this.ApiRoutes.storeRoute.edit, StoreData);
+}
 }
