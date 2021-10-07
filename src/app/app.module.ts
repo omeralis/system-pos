@@ -16,6 +16,7 @@ import { GroupsComponent } from './Page/groups/groups.component';
 import { ToastsComponent } from './shared/toasts/toasts.component';
 import { ItemsComponent } from './Page/Items/items.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SuppliersComponent } from './Page/suppliers/suppliers.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NewInvoiceComponent,
     GroupsComponent,
     ToastsComponent,
-    ItemsComponent
+    ItemsComponent,
+    SuppliersComponent
   ],
   imports: [
     BrowserModule,

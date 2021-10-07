@@ -37,10 +37,10 @@ export class GroupsComponent implements OnInit {
         nameGroup: new FormControl('', Validators.required),
       }),
     });
-    this.filtersForm();
+    this.EditForm();
     this.gitdata();
   }
-  private filtersForm(): void {
+  private EditForm(): void {
     this.UpdataForm = this.formBuilder.group({
       id: [""],
       nameGroup: [""],
@@ -100,10 +100,7 @@ editGroup(){
     )
   }
 
-  // setStaffData(e:any) {
-  //   this.UpdataForm.controls["id"].setValue(e.id);
-  //   this.UpdataForm.controls["nameGroup"].setValue(e.nameGroup);
-  // }
+
   get addSaveValid() {
     return this.groupForm.controls;
   }
