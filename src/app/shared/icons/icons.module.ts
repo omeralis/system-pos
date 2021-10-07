@@ -9,6 +9,7 @@ import {
   faHome,
   faSave,
   faEdit,
+  faTrash,
   faEyeSlash,
   faEye,
   faSearch,
@@ -33,6 +34,7 @@ import {
   faShoppingCart,
   faSignInAlt,
   faCheck,
+  faBars
 } from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
@@ -46,6 +48,7 @@ export class IconsModule {
       faHome,
       faSave,
       faEdit,
+      faTrash,
       faEyeSlash,
       faEye,
       faSearch,
@@ -69,7 +72,8 @@ export class IconsModule {
       faInfoCircle,
       faShoppingCart,
       faSignInAlt,
-      faCheck
+      faCheck,
+      faBars
     );
   }
 }

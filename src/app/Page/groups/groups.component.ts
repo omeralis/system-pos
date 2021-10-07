@@ -18,7 +18,8 @@ export class GroupsComponent implements OnInit {
   UpdataForm: FormGroup | any;
   isLoadingSave: boolean = false;
   responseMessage:any;
-  constructor(config: NgbModalConfig, private modalService: NgbModal, public groupService: ServicesService , private formBuilder: FormBuilder,private alertify: AlertifyServiceService,) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, public groupService: ServicesService , 
+    private formBuilder: FormBuilder,private alertify: AlertifyServiceService,) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -66,7 +67,6 @@ export class GroupsComponent implements OnInit {
   }
 
   addNewGroup() {
-    console.log(this.groupForm);
     this.isLoadingSave = true;
     this.submittedAdd = true;
     this.groupService.postGroups(this.groupForm.value).subscribe(

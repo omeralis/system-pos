@@ -14,6 +14,8 @@ import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
 import { IconsModule } from './shared/icons/icons.module';
 import { GroupsComponent } from './Page/groups/groups.component';
 import { ToastsComponent } from './shared/toasts/toasts.component';
+import { ItemsComponent } from './Page/Items/items.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ToastsComponent } from './shared/toasts/toasts.component';
     FooterComponent,
     NewInvoiceComponent,
     GroupsComponent,
-    ToastsComponent
+    ToastsComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { ToastsComponent } from './shared/toasts/toasts.component';
     IconsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   
   ],
   providers: [],

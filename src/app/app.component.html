@@ -1,10 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="wrapper default-theme">
   <main class="content-main">
-    <div class="main-sidebar">
+    <button type="button" class="btn btn-primary sidebarCollapse"  id="sidebarCollapse"  (click)="toggleNavbar()" [class.sidebarCollapseClose]="navbarOpen" ><fa-icon icon="bars" class="icon"></fa-icon></button>
+    <div class="main-sidebar"   [class.toggleSidebar]="navbarOpen">
       <app-sidebar></app-sidebar>
     </div>
-    <section class="home-section">
+    <section class="home-section" [class.homeSectionColse]="navbarOpen">
       <div class="pages container-fluid">
           <div class="header-nav">
             <app-navbar></app-navbar>

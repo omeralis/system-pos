@@ -14,7 +14,7 @@
 	background: #093360;
 	// padding: 6px 14px;
 	z-index: 99;
-	transition: all 0.5s ease;
+	transition: all 0.3s ease;
 	.logo-details {
 		height: 60px;
 		display: flex;
@@ -181,70 +181,70 @@
 		}
 	}
 }
-.sidebar.open {
-	width: 250px;
-	.logo-details {
-		.icon {
-			opacity: 1;
-		}
-		.logo_name {
-			opacity: 1;
-		}
-		#btn {
-			text-align: right;
-		}
-	}
-	li {
-		.tooltip {
-			display: none;
-		}
-		a {
-			.links_name {
-				opacity: 1;
-				pointer-events: auto;
-			}
-		}
-	}
-	input {
-		padding: 0 20px 0 50px;
-		width: 100%;
-	}
-	.bx-search {
-		&:hover {
-			background: #1d1b31;
-			color: #FFF;
-		}
-	}
-	li.profile {
-		width: 250px;
-	}
-	.profile {
-		#log_out {
-			width: 50px;
-			background: none;
-		}
-	}
-	~ {
-		.home-section {
-			left: 250px;
-			width: calc(100% - 250px);
-		}
-	}
-}
-.home-section {
-	position: relative;
-	background: #E4E9F7;
-	min-height: 100vh;
-	top: 0;
-	left: 78px;
-	width: calc(100% - 78px);
-	transition: all 0.5s ease;
-	z-index: 2;
-	.text {
-		display: inline-block;
-		color: #11101d;
-		font-size: 25px;
-		font-weight: 500;
-		margin: 18px;
-	}
-}
+// .sidebar.open {
+// 	width: 250px;
+// 	.logo-details {
+// 		.icon {
+// 			opacity: 1;
+// 		}
+// 		.logo_name {
+// 			opacity: 1;
+// 		}
+// 		#btn {
+// 			text-align: right;
+// 		}
+// 	}
+// 	li {
+// 		.tooltip {
+// 			display: none;
+// 		}
+// 		a {
+// 			.links_name {
+// 				opacity: 1;
+// 				pointer-events: auto;
+// 			}
+// 		}
+// 	}
+// 	input {
+// 		padding: 0 20px 0 50px;
+// 		width: 100%;
+// 	}
+// 	.bx-search {
+// 		&:hover {
+// 			background: #1d1b31;
+// 			color: #FFF;
+// 		}
+// 	}
+// 	li.profile {
+// 		width: 250px;
+// 	}
+// 	.profile {
+// 		#log_out {
+// 			width: 50px;
+// 			background: none;
+// 		}
+// 	}
+// 	~ {
+// 		.home-section {
+// 			left: 250px;
+// 			width: calc(100% - 250px);
+// 		}
+// 	}
+// }
+// .home-section {
+// 	position: relative;
+// 	background: #E4E9F7;
+// 	min-height: 100vh;
+// 	top: 0;
+// 	left: 78px;
+// 	width: calc(100% - 78px);
+// 	transition: all 0.5s ease;
+// 	z-index: 2;
+// 	.text {
+// 		display: inline-block;
+// 		color: #11101d;
+// 		font-size: 25px;
+// 		font-weight: 500;
+// 		margin: 18px;
+// 	}
+// }

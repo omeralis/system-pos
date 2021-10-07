@@ -9,9 +9,12 @@ export class SidebarComponent implements OnInit {
   sidebar:boolean = false;
   closeBtn : boolean = false;
   searchBtn :boolean = false;
+  navbarOpen = false;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
 }

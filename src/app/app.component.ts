@@ -8,6 +8,7 @@ import { ServicesService } from './services/services.service';
 })
 export class AppComponent {
   title = 'POS';
+  navbarOpen = false;
   constructor(private appService: ServicesService) {}
   // getClasses() {
   //   const classes = {
@@ -19,4 +20,7 @@ export class AppComponent {
   // toggleSidebar() {
   //   this.appService.toggleSidebar();
   // }
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
 }
