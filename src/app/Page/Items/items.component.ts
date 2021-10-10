@@ -52,6 +52,7 @@ export class ItemsComponent implements OnInit {
     this.Service.getItem().subscribe(
       (ItemRespone:any) => {
         this.ItemData =ItemRespone;
+        console.log(this.ItemData[0].groups?.nameGroup)
       }
     )
   }
@@ -60,6 +61,7 @@ getGruopName(){
     (ItemRespone:any) => {
       ItemRespone.forEach((data:any) => {
         this.GroupNameData.push(data);
+        console.log(this.GroupNameData)
       });
     }
   )

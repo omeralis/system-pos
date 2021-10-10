@@ -5,6 +5,7 @@ import { CustomersComponent } from './Page/customers/customers.component';
 import { GroupsComponent } from './Page/groups/groups.component';
 import { ItemsComponent } from './Page/Items/items.component';
 import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
+import { StoreComponent } from './Page/store/store.component';
 import { SuppliersComponent } from './Page/suppliers/suppliers.component';
 
 const routes: Routes = [
@@ -14,8 +15,8 @@ const routes: Routes = [
   {path: 'gorup', component: GroupsComponent},
   {path: 'item', component: ItemsComponent},
   {path: 'supplier', component: SuppliersComponent},
-  {path: 'customer', component: CustomersComponent
-}
+  {path: 'customer', component: CustomersComponent},
+  {path: 'store', component: StoreComponent}
 
   
 ];

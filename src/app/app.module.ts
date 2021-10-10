@@ -18,6 +18,7 @@ import { ItemsComponent } from './Page/Items/items.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SuppliersComponent } from './Page/suppliers/suppliers.component';
 import { CustomersComponent } from './Page/customers/customers.component';
+import { StoreComponent } from './Page/store/store.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CustomersComponent } from './Page/customers/customers.component';
     ToastsComponent,
     ItemsComponent,
     SuppliersComponent,
-    CustomersComponent
+    CustomersComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,
