@@ -76,6 +76,7 @@ export class StoreComponent implements OnInit {
     this.Service.getStore().subscribe(
       (StoreRespone:any) => {
         this.StoreData=StoreRespone;
+        console.log(this.StoreData)
       }
     )
   }
