@@ -14,6 +14,7 @@ export class ServicesService {
   ApiRoutes = {
     groupRoute: {
       group: 'group',
+      itemOfgroup:'itemofgroup',
       edit: 'editgroup'
     },
     itemRoute: {
@@ -45,6 +46,9 @@ export class ServicesService {
   // gorup 
   getGroups() {
     return this.http.get(this.url + this.ApiRoutes.groupRoute.group);
+  }
+  getItemOFGroups() {
+    return this.http.get(this.url + this.ApiRoutes.groupRoute.itemOfgroup);
   }
 
   postGroups(nameGroup: any) {

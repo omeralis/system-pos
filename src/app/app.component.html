@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="wrapper default-theme">
   <main class="content-main">
-    <button type="button" class="btn btn-primary sidebarCollapse"  id="sidebarCollapse"  (click)="toggleNavbar()" [class.sidebarCollapseClose]="navbarOpen" ><fa-icon icon="bars" class="icon"></fa-icon></button>
+    <button type="button" class="btn btn-outline-primary sidebarCollapse"  id="sidebarCollapse"  (click)="toggleNavbar()" [class.sidebarCollapseClose]="navbarOpen" ><fa-icon icon="bars" class="icon"></fa-icon></button>
     <div class="main-sidebar"   [class.toggleSidebar]="navbarOpen">
       <app-sidebar></app-sidebar>
     </div>

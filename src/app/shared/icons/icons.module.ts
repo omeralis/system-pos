@@ -27,6 +27,7 @@ import {
   faFile,
   faPrint,
   faPlus,
+  faMinus,
   faPen,
   faTimes,
   faLocationArrow,
@@ -34,7 +35,9 @@ import {
   faShoppingCart,
   faSignInAlt,
   faCheck,
-  faBars
+  faBars,
+  faShoppingBag,
+  faTags
 } from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
@@ -66,6 +69,7 @@ export class IconsModule {
       faFile,
       faPrint,
       faPlus,
+      faMinus,
       faPen,
       faTimes,
       faLocationArrow,
@@ -73,7 +77,9 @@ export class IconsModule {
       faShoppingCart,
       faSignInAlt,
       faCheck,
-      faBars
+      faBars,
+      faShoppingBag,
+      faTags
     );
   }
 }
