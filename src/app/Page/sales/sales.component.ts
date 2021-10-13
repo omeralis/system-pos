@@ -7,7 +7,7 @@ import { Groups } from 'src/app/shared/model/groups/groups';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss']
+  styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
   ItemOfgroupData: any = [];
@@ -15,48 +15,45 @@ export class SalesComponent implements OnInit {
   active = 0;
   cartlist: any = [];
   Qut = 1;
-  constructor(private modalService: NgbModal, public Service: ServicesService,
-    private formBuilder: FormBuilder) { }
+  constructor(
+    private modalService: NgbModal,
+    public Service: ServicesService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.getItemOfGroup();
   }
 
   getItemOfGroup() {
-    this.Service.getItemOFGroups().subscribe(
-      (GroupRespone: any) => {
-        this.ItemOfgroupData = GroupRespone;
-      }
-    )
+    this.Service.getItemOFGroups().subscribe((GroupRespone: any) => {
+      this.ItemOfgroupData = GroupRespone;
+    });
   }
   addToCart(cartToAdd: any) {
     if (this.cartlist.length == 0) {
       this.cartlist.push(cartToAdd);
-      console.log("cartlist.push 1 ");
-    }
-    else {
-      for (let item of this.cartlist) {
-        if (item == cartToAdd) {
+      console.log('1:');
+    } else {
+
+      for (let i=0; i <  this.cartlist.length; i++) {
+        console.log("if tow :", i +"  ling",this.cartlist.length)
+        if ( this.cartlist[i] == cartToAdd) 
+        {
           this.Qut++;
+          console.log('2:',  this.cartlist[i].itemName, cartToAdd.itemName);
           break;
         }
-        else {
-          if (item !== cartToAdd) {
-            this.cartlist.push(cartToAdd);
-            break;
-          }
-          else {
-            continue;
-          }
+         else if( this.cartlist[i] != cartToAdd && i+1 ==this.cartlist.length)
+         {
+          this.cartlist.push(cartToAdd);
+          console.log('3:',  this.cartlist[i].itemName, cartToAdd.itemName);
+          break;
         }
 
-
       }
-
     }
   }
-
-
 
   removeToCart(cartITem: any) {
     this.cartlist.pop(cartITem);

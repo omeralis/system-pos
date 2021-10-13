@@ -30,6 +30,11 @@ td{
 padding: 0 0.3rem;
 width: 15%;
 }
+ th, td {
+    padding: 0.75rem;
+    vertical-align: top !important;
+    border-top: 1px solid #dee2e6 !important;
+}
 .btn-group .form-control {
 border: 1px solid #7e858b61 !important;
 border-radius: 0 !important;
