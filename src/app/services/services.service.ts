@@ -5,6 +5,8 @@ import { ITEMS } from '../shared/model/Items/items';
 import { SUPPLIERS } from '../shared/model/supplier/supplier';
 import { CUSTOMERS } from '../shared/model/customers/customers';
 import { STORE } from '../shared/model/store/store';
+import { orderLine } from '../shared/model/order/orderLine';
+import { order } from '../shared/model/order/order';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,11 @@ export class ServicesService {
     storeRoute:{
       store: 'store',
       edit: 'editstore'
+    },
+    orderRoute:{
+      sales: 'order',
+      salesline: 'orderline',
+      // edit: 'editstore'
     }
   }
 
@@ -101,5 +108,15 @@ postStore(StoreData: STORE) {
 
 EditStore(StoreData: STORE) {
   return this.http.post(this.url + this.ApiRoutes.storeRoute.edit, StoreData);
+}
+//Sales
+postSales(SalesData: order) {
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.sales, SalesData);
+}
+postSalesLine(SalesLineData: orderLine) {
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.salesline, SalesLineData);
+}
+getLastOrder() {
+  return this.http.get(this.url + this.ApiRoutes.orderRoute.sales);
 }
 }
