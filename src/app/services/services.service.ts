@@ -113,7 +113,7 @@ EditStore(StoreData: STORE) {
 postSales(SalesData: order) {
   return this.http.post(this.url + this.ApiRoutes.orderRoute.sales, SalesData);
 }
-postSalesLine(SalesLineData: orderLine) {
+postSalesLine(SalesLineData: any) {
   return this.http.post(this.url + this.ApiRoutes.orderRoute.salesline, SalesLineData);
 }
 getLastOrder() {

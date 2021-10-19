@@ -17,7 +17,26 @@ export class SalesComponent implements OnInit {
   cartlist: any = [];
   lastOrderID:any=[];
   dataOrder:orderLine[]=[];
+  AddForm: FormGroup | any;
   Qut = 1;
+  
+	data=[
+        {
+          "orderId": 1,
+          "itemNo": 1,
+          "quantity": 1,
+          "unitPrice": 1,
+          "subTotal": 1
+        },
+          {
+          "orderId": 1,
+          "itemNo": 1,
+          "quantity": 1,
+          "unitPrice": 1,
+          "subTotal": 1
+        }
+]
+
   constructor(
     private modalService: NgbModal,
     public Service: ServicesService,
@@ -38,10 +57,24 @@ export class SalesComponent implements OnInit {
     unitPrice: new FormControl(null,[Validators.required]),
     subTotal: new FormControl(null,[Validators.required]),
   })
-  orderarr = new FormArray([]);
+  private AddOrderForm() {
+    this.AddForm = this.formBuilder.group({
+      data:this.formBuilder.array([
+        this.formBuilder.group({
+          orderId: [1],
+          itemNo:[null],
+          quantity:[10],
+          unitPrice:[null],
+          subTotal:[null],
+        }),
+      ])
+    });
+  }
+
   ngOnInit(): void {
     this.getItemOfGroup();
-    // this.AddIOrder();
+    this.AddOrderForm();
+    this.AddForm.get('data') as FormArray;
   }
 
   getItemOfGroup() {
@@ -78,15 +111,13 @@ export class SalesComponent implements OnInit {
     this.Service.postSales(this.orderForm.value).subscribe(
       (OrderRespone)=>{
         this.modalService.dismissAll();
-        this.lastOrderID = OrderRespone
-        // console.log("lastOrderID OrderRespone" , OrderRespone);
-        for (let index = 0; index < this.orderLineForm.get.length; index++) {
-        this.orderLineForm.value.orderId = this.lastOrderID.id;
-        this.Service.postSalesLine(this.orderLineForm.value).subscribe(
+        this.lastOrderID = OrderRespone;
+        this.AddForm.value.orderId = this.lastOrderID.id;
+        console.log( this.AddForm.value.orderId)
+        this.Service.postSalesLine(this.AddForm.value).subscribe(
           (OrderLineRespone)=>{
             this.modalService.dismissAll();
             console.log("OrderLineRespone" , OrderLineRespone);
-            console.log("index", index)
           },
           (error) => {
             console.log(error);
@@ -94,9 +125,7 @@ export class SalesComponent implements OnInit {
           ()=>{
           }
         )
-        }
-
-
+        // }
       },
       (error) => {
         console.log(error);
@@ -107,6 +136,9 @@ export class SalesComponent implements OnInit {
     );
   }
 
+  get dataControls() {
+    return this.AddForm.get('data') as FormArray;
+ }
   removeToCart(cartITem: any) {
     this.cartlist.pop(cartITem);
   }
