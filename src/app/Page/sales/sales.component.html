@@ -54,41 +54,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                             <tr [formGroup]="AddForm"  *ngFor="let cart of cartlist let i = index;">
-                               <!-- <ng-container formArrayName="data.controls">
-                                    
+                             <tr  *ngFor="let cart of cartlist let i = index;">
                                 <td>
-                                    <input type="number" class="form-control form-control-sm" [value]="cart.itemNo" formControlName="itemNo" /> 
+                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.itemName" name="itemName"    /> 
+                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.id" name="itemNo"  hidden  /> 
+                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.orderId" name="orderId"  hidden  /> 
                                 </td>
                                 <td style="width: 30%;">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-outline-primary">
                                             <fa-icon icon="minus"></fa-icon>
                                         </button>
-                                        <input type="number" class="form-control" id="" [value]="Qut"  formControlName="quantity">
+                                        <input type="number" class="form-control" id="" [(value)]="cart.quantity" name="quantity"  disabled  >
                                         <button type="button" class="btn btn-outline-primary">
                                             <fa-icon icon="plus"></fa-icon>
                                         </button>
                                     </div>
                                 </td>
-                                <td> <input type="number" class="form-control" id="unitPrice" [value]="cart.unitPrice"  formControlName="unitPrice"></td>
-                                <td> <input type="number" class="form-control" id="subTotal" [value]="cart.subTotal"  formControlName="subTotal"></td>
+                                <td> <input type="number" class="form-control" id="unitPrice" [(value)]="cart.unitPrice" name="unitPrice" disabled ></td>
+                                <td> <input type="number" class="form-control" id="subTotal" [(value)]="cart.subTotal" name="subTotal" disabled ></td>
                                 <td>
                                     <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
                                         <fa-icon icon="trash"></fa-icon>
                                     </button>
                                 </td>
-                                </ng-container>
-                            </tr> -->
+                            </tr>
                           
-                                <ng-container formArrayName="data">
+                                <!-- <ng-container formArrayName="data">
                                     <ng-container *ngFor="let data of dataControls.controls; let i = index" [formGroupName]="i">
                                 <td>
                                     <input type="number" class="form-control form-control-sm" [value]="cart.itemNo" formControlName="itemNo" /> 
                                 </td>
                                 <td style="width: 30%;">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <button type="button" class="btn btn-outline-primary"> 
                                             <fa-icon icon="minus"></fa-icon>
                                         </button>
                                         <input type="number" class="form-control" id="" [value]="cart.quantity"   formControlName="quantity">
@@ -107,7 +106,7 @@
                                     </ng-container>
                                 </ng-container> 
                           
-                            </tr>
+                            </tr> -->
                     </tbody>
                 </table>
             </div>
