@@ -40,6 +40,9 @@ export class ServicesService {
       priceunit: 'priceunit',
       edit: 'editstore'
     },
+    purchaseRoute:{
+      purchase: 'purchase'
+    },
     orderRoute:{
       sales: 'order',
       salesline: 'orderline',
@@ -118,6 +121,9 @@ postStore(StoreData: STORE) {
 }
 EditStore(StoreData: STORE) {
   return this.http.post(this.url + this.ApiRoutes.storeRoute.edit, StoreData);
+}
+postPurchase(PurchaseData: any){
+  return this.http.post(this.url + this.ApiRoutes.purchaseRoute.purchase , PurchaseData);
 }
 //Sales
 postSales(SalesData: order) {

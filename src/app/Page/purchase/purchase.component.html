@@ -80,24 +80,41 @@
     <div class="modal-body">
         <div class="form-group row">
             <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Store</label>
-            <div class="col-sm-10 mt-2">
-                <ng-select [items]="StoreData" bindLabel="storeName" bindValue="id">
+            <div class="col-sm-4 mt-2">
+          <form [formGroup]="PurchaseStoreForm">
+                <ng-select [items]="StoreData" bindLabel="storeName" bindValue="id" formControlName="id">
                 </ng-select>
+          </form>
+
             </div>
+          
             <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Suppliers</label>
-            <div class="col-sm-10 mt-2">
-                <ng-select [items]="SupplierData" bindLabel="supplierName" bindValue="id">
+            <div class="col-sm-4 mt-2">
+              <form [formGroup]="PurchaseSupplierForm">
+                <ng-select [items]="SupplierData" bindLabel="supplierName" bindValue="id" formControlName="id">
                 </ng-select>
+            </form>
             </div>
             <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Item</label>
-            <div class="col-sm-10 mt-2">
-                <ng-select [items]="ItemData" bindLabel="itemName" bindValue="id"  (change)="addList(ItemData)">
-                </ng-select>
+            <div class="col-sm-4 mt-2">
+              
+            <div class="input-group mb-3">
+              <ng-select style="width: 83%;" [(ngModel)]="selectedItem" [items]="ItemData" bindLabel="itemName" bindValue="id">
+              </ng-select>
+                <div class="input-group-append">
+                <button class="btn btn-primary" type="button" style="height: 2.3rem !important;" (click)="addList(selectedItem)">
+                  <fa-icon icon="plus" class="icon"></fa-icon>
+                </button>
+              </div>
+            </div>
+                
             </div>
             <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Date Purchase</label>
-            <div class="col-sm-10 mt-2">
-                <input type="date" class="form-control" id="" autocomplete="off" 
+            <div class="col-sm-4 mt-2">
+              <form [formGroup]="PurchaseForm">
+                <input type="date" class="form-control" id="" autocomplete="off"  formControlName="purchaseDate"
                    />
+               </form>
              </div>
         </div>
         <div class="form-group row">
@@ -107,44 +124,41 @@
                         <th>item</th>
                         <th>quantity</th>
                         <th>cost</th>
-                        <th>Total Cost</th> 
+                        <th>sub Cost</th> 
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of Tablelist  let i = index;">
                         <td>
-                          <input type="text" class="form-control form-control-sm" [(value)]="data[0].itemName"
+                          <input type="text" class="form-control form-control-sm" [(value)]="data.itemName"
                           name="itemName" disabled />
                         </td>
                           <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-primary">
-                                    <fa-icon icon="minus"></fa-icon>
-                                </button>
-                                <input  type="number" class="form-control" id="" min="0" [value]="data.quantity"
-                                    name="quantity" >
-                                <button type="button" class="btn btn-outline-primary"
-                                    >
-                                    <fa-icon icon="plus"></fa-icon>
-                                </button>
+                                <input  #qnt type="number" class="form-control" id="" min="0" [value]="data.quantity"
+                                    name="quantity" (change)="changeQnty(data,qnt.value)">
                             </div>
                         </td>
                         <td>
-                          <input type="number" class="form-control form-control-sm" [(value)]="data[0].priceItem"
+                          <input type="number" class="form-control form-control-sm" [(value)]="data.priceItem"
                           name="itemName" disabled />
                         </td>
                         <td>
-                          {{TotalCost}}
-                          <!-- <input type="number" class="form-control form-control-sm" [(value)]="data[0].cost"
-                          name="itemName" disabled /> -->
+                          <input type="number" class="form-control form-control-sm" [(value)]="data.subTotal"
+                          name="itemName" disabled />
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-
-
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary" type="button" ngbTooltip="Add New Item "  (click)="AddPurchase()">
+            <span *ngIf="isLoadingSave" style="color: white;" class="spinner-border spinner-border-sm" role="status"
+            aria-hidden="true"> </span>
+            Save
+            <fa-icon icon="save" class="icon"></fa-icon>
+          </button>
+        </div>
     </div>
 </ng-template>
 <!-- <ng-template #EditModel let-c="close" let-d="dismiss">
