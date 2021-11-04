@@ -4,6 +4,7 @@ import { SUPPLIERS } from "../supplier/supplier";
 
 export interface STORE{
     id?: number;
+    storeName?:string;
     purchaseNo?: number;
     purchaseDate?: Date;
     priceItem?:number;

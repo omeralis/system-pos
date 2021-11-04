@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Groups } from '../shared/model/groups/groups';
 import { ITEMS } from '../shared/model/Items/items';
 import { SUPPLIERS } from '../shared/model/supplier/supplier';
@@ -19,6 +19,10 @@ export class ServicesService {
       itemOfgroup:'itemofgroup',
       edit: 'editgroup'
     },
+    unitRoute: {
+      unit: 'unit',
+      edit: 'editunit'
+    },
     itemRoute: {
       item: 'item',
       edit: 'edititem'
@@ -33,12 +37,14 @@ export class ServicesService {
     },
     storeRoute:{
       store: 'store',
+      priceunit: 'priceunit',
       edit: 'editstore'
     },
     orderRoute:{
       sales: 'order',
       salesline: 'orderline',
-      // edit: 'editstore'
+      ordersave: 'ordersave',
+      Invoic:'invoic'
     }
   }
 
@@ -65,6 +71,11 @@ export class ServicesService {
   EditGroups(dataGroup: Groups) {
     return this.http.post(this.url + this.ApiRoutes.groupRoute.edit, dataGroup);
   }
+    // unit
+    getUnit() {
+      return this.http.get(this.url + this.ApiRoutes.unitRoute.unit);
+    }
+
   // item
   getItem() {
     return this.http.get(this.url + this.ApiRoutes.itemRoute.item);
@@ -105,7 +116,6 @@ getStore() {
 postStore(StoreData: STORE) {
   return this.http.post(this.url + this.ApiRoutes.storeRoute.store, StoreData);
 }
-
 EditStore(StoreData: STORE) {
   return this.http.post(this.url + this.ApiRoutes.storeRoute.edit, StoreData);
 }
@@ -116,7 +126,11 @@ postSales(SalesData: order) {
 postSalesLine(SalesLineData: any) {
   return this.http.post(this.url + this.ApiRoutes.orderRoute.salesline, SalesLineData);
 }
-getLastOrder() {
-  return this.http.get(this.url + this.ApiRoutes.orderRoute.sales);
+postOrdersave(SalesLineData: any) {
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.ordersave, SalesLineData);
+}
+postInvoice(orderId: any) {
+
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.Invoic, {orderId: orderId});
 }
 }

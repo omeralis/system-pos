@@ -1,87 +1,164 @@
 <div class="d-flex justify-content-between title">
-    <h6>ITEMS</h6>
-    <div class="  m-1" placement="top" ngbTooltip="Add New Group">
-        <fa-icon icon="plus" (click)="open(content)"></fa-icon>
-     </div>
+  <h6>ITEMS</h6>
+  <div class="  m-1" placement="top" ngbTooltip="Add New Group">
+    <fa-icon icon="plus" (click)="open(content)"></fa-icon>
+  </div>
   <!-- <button class="btn btn-outline-primary" >Add New Group</button> -->
 </div>
 <div class="content-table">
   <table class="table-content mt-2">
     <thead>
-        <tr>
-            <th>
-                <h1>#</h1>
-            </th>
-            <th>
-                <h1>Item </h1>
-            </th>
-            <th>
-              <h1>Group </h1>
-          </th>
-            <th>
-              <h1>Edit </h1>
-          </th>
-        </tr>
+      <tr>
+        <th>
+          <h1>#</h1>
+        </th>
+        <th>
+          <h1>Parcode </h1>
+        </th>
+        <th>
+          <h1>Item </h1>
+        </th>
+        <th>
+          <h1>Group </h1>
+        </th>
+        <th>
+          <h1>unitItem </h1>
+        </th>
+        <th>
+          <h1>alarmQuantity </h1>
+        </th>
+        <th>
+          <h1>priceItem </h1>
+        </th>
+        <th>
+          <h1>special </h1>
+        </th>
+        <th>
+          <h1>Image </h1>
+        </th>
+        <th>
+          <h1>Edit </h1>
+        </th>
+      </tr>
     </thead>
     <tbody>
-        <tr  *ngFor="let Data of ItemData let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{Data.itemName}}</td>
-            <td>{{Data.groups?.nameGroup}}</td>
-            <td class="iconSetting">
-              <span (click)="openEdit(Data)">
-                <fa-icon icon="edit"></fa-icon>
-              </span>
-              <span>
-                <fa-icon icon="trash"></fa-icon>
-              </span>
-            </td>
-        </tr>
+      <tr *ngFor="let Data of ItemData let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{Data.Parcode}}</td>
+        <td>{{Data.itemName}}</td>
+        <td>{{Data.groups?.nameGroup}}</td>
+        <td>{{Data.units_item?.unitName}}</td>
+        <td>{{Data.alarmQuantity}}</td>
+        <td>{{Data.priceItem}}</td>
+        <td>{{Data.special}}</td>
+        <td>{{Data.Image}}</td>
+        <td class="iconSetting">
+          <span (click)="openEdit(Data)">
+            <fa-icon icon="edit"></fa-icon>
+          </span>
+          <span>
+            <fa-icon icon="trash"></fa-icon>
+          </span>
+        </td>
+      </tr>
     </tbody>
-</table>
+  </table>
 </div>
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">New ITEMs</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="ItemForm" (ngSubmit)="AddItem()" >
-            <div class="form-group row">
-              <label for="inputGroup" class="col-sm-2 col-form-label">Item</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="itemName" autocomplete="off" formControlName="itemName"
-                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.itemName.errors }"
-                />
-                <div *ngIf="submittedAdd && addSaveValid.itemName.errors" class="invalid-feedback">
-                   <div *ngIf="addSaveValid.itemName.errors.required"> Name is required</div>
-                </div>
-              </div>
-              <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Group</label>
-              <div class="col-sm-10 mt-2">
-                <!-- <ng-select [items]="ItemData" >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New ITEMs</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="ItemForm" (ngSubmit)="AddItem()">
+      <div class="form-group row">
+        <label for="inputGroup" class="col-sm-2 col-form-label">Item</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="itemName" autocomplete="off" formControlName="itemName"
+            [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.itemName.errors }" />
+          <div *ngIf="submittedAdd && addSaveValid.itemName.errors" class="invalid-feedback">
+            <div *ngIf="addSaveValid.itemName.errors.required"> Name is required</div>
+          </div>
+        </div>
+        <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Group</label>
+        <div class="col-sm-10 mt-2">
+          <!-- <ng-select [items]="ItemData" >
                 </ng-select> -->
-              <ng-select [items]="GroupNameData"
-                bindLabel="nameGroup"
-                bindValue="id"
-                formControlName="groupNo">
-              </ng-select>
-                <div *ngIf="submittedAdd && addSaveValid.groupNo.errors" class="invalid-feedback">
-                   <div *ngIf="addSaveValid.groupNo.errors.required"> Name is required</div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">Save
-                <span *ngIf="isLoadingSave" style="color: white;"
-                class="spinner-border spinner-border-sm" role="status"
-                aria-hidden="true"> </span>
-              </button>
-            </div>
-          </form>
-    </div>
+          <ng-select [items]="GroupNameData" bindLabel="nameGroup" bindValue="id" formControlName="groupNo">
+          </ng-select>
+          <div *ngIf="submittedAdd && addSaveValid.groupNo.errors" class="invalid-feedback">
+            <div *ngIf="addSaveValid.groupNo.errors.required"> Name is required</div>
+          </div>
+        </div>
+
+      <label for="inputGroup" class="col-sm-2 col-form-label mt-2">unit Item</label>
+      <div class="col-sm-10 mt-2">
+        <ng-select [items]="UnitNameData" bindLabel="unitName" bindValue="id" formControlName="unitItem">
+        </ng-select>
+        <div *ngIf="submittedAdd && addSaveValid.unitItem.errors" class="invalid-feedback">
+          <div *ngIf="addSaveValid.unitItem.errors.required"> Name is required</div>
+        </div>
+      </div>
+
+
+
+      <label for="inputGroup" class="col-sm-2 col-form-label">Parcode</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="Parcode" autocomplete="off" formControlName="Parcode"
+          [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.Parcode.errors }" />
+        <div *ngIf="submittedAdd && addSaveValid.Parcode.errors" class="invalid-feedback">
+          <div *ngIf="addSaveValid.Parcode.errors.required"> Parcode is required</div>
+        </div>
+      </div>
+
+
+      <label for="inputGroup" class="col-sm-2 col-form-label">Alarm Quantity</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="alarmQuantity" autocomplete="off" formControlName="alarmQuantity"
+          [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.alarmQuantity.errors }" />
+        <div *ngIf="submittedAdd && addSaveValid.alarmQuantity.errors" class="invalid-feedback">
+          <div *ngIf="addSaveValid.alarmQuantity.errors.required"> Name is required</div>
+        </div>
+      </div>
+
+      <label for="inputGroup" class="col-sm-2 col-form-label">special</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="special" autocomplete="off" formControlName="special"
+          [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.special.errors }" />
+        <div *ngIf="submittedAdd && addSaveValid.special.errors" class="invalid-feedback">
+          <div *ngIf="addSaveValid.special.errors.required"> Name is required</div>
+        </div>
+      </div>
+      
+      <label for="inputGroup" class="col-sm-2 col-form-label">Price Item</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="priceItem" autocomplete="off" formControlName="priceItem"
+          [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.priceItem.errors }" />
+        <div *ngIf="submittedAdd && addSaveValid.priceItem.errors" class="invalid-feedback">
+          <div *ngIf="addSaveValid.priceItem.errors.required"> priceI tem is required</div>
+        </div>
+      </div>
+
+      <label for="inputGroup" class="col-sm-2 col-form-label">Image</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="Image" autocomplete="off" formControlName="Image"
+          />
+
+      </div>
+
+
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Save
+          <span *ngIf="isLoadingSave" style="color: white;" class="spinner-border spinner-border-sm" role="status"
+            aria-hidden="true"> </span>
+        </button>
+      </div>
+    </form>
+  </div>
 </ng-template>
 <ng-template #EditModel let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -91,29 +168,23 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="UpdataForm" (ngSubmit)="editItem()" >
+    <form [formGroup]="UpdataForm" (ngSubmit)="editItem()">
       <div class="form-group row">
         <label for="inputGroup" class="col-sm-2 col-form-label">Item</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="inputGroup" name="id" formControlName="id" hidden>
-          <input type="text" class="form-control" id="itemName"   formControlName="itemName"
-          />
+          <input type="text" class="form-control" id="itemName" formControlName="itemName" />
         </div>
         <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Group</label>
         <div class="col-sm-10 mt-2">
-          <ng-select [items]="GroupNameData"
-                bindLabel="nameGroup"
-                bindValue="id"
-                formControlName="groupNo"
-                >
-              </ng-select>
+          <ng-select [items]="GroupNameData" bindLabel="nameGroup" bindValue="id" formControlName="groupNo">
+          </ng-select>
         </div>
       </div>
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-primary">Save
-          <span *ngIf="isLoadingSave" style="color: white;"
-          class="spinner-border spinner-border-sm" role="status"
-          aria-hidden="true"> </span>
+          <span *ngIf="isLoadingSave" style="color: white;" class="spinner-border spinner-border-sm" role="status"
+            aria-hidden="true"> </span>
         </button>
       </div>
     </form>

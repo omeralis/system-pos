@@ -4,6 +4,7 @@ import { ServicesService } from 'src/app/services/services.service';
 import { ITEMS } from 'src/app/shared/model/Items/items';
 import {FormBuilder, FormControl, FormGroup, Validators, FormsModule } from "@angular/forms";
 import { Groups } from 'src/app/shared/model/groups/groups';
+import { units_item } from 'src/app/shared/model/units_item/units_item';
 
 @Component({
   selector: 'app-items',
@@ -14,6 +15,7 @@ export class ItemsComponent implements OnInit {
   @ViewChild("EditModel") EditModel:any;
   ItemData:ITEMS[]=[];
   GroupNameData:Groups[]=[];
+  UnitNameData:units_item[]=[];
   submittedAdd = false;
   isLoadingSave: boolean = false;
   responseMessage:any;
@@ -23,19 +25,32 @@ export class ItemsComponent implements OnInit {
   ItemForm = new FormGroup({
     id: new FormControl(null),
     itemName: new FormControl(null,[Validators.required]),
-    groupNo: new FormControl(null,[Validators.required])
+    groupNo: new FormControl(null,[Validators.required]),
+    unitItem: new FormControl(null,[Validators.required]),
+    Parcode: new FormControl(null,[Validators.required]),
+    alarmQuantity: new FormControl(null,[Validators.required]),
+    special: new FormControl(null,[Validators.required]),
+    priceItem: new FormControl(null,[Validators.required]),
+    Image: new FormControl(null)
   })
   private EditForm(): void {
     this.UpdataForm = this.formBuilder.group({
       id: [""],
       itemName: [""],
       groupNo: [""],
+      unitItem: [""],
+      Parcode: [""],
+      alarmQuantity: [""],
+      special: [""],
+      priceItem: [""],
+      Image: [""],
     });
   }
 
   ngOnInit(): void {
     this.getdata();
     this.getGruopName();
+    this.getUnitName();
     this.EditForm();
   }
   open(content: any) {
@@ -52,7 +67,7 @@ export class ItemsComponent implements OnInit {
     this.Service.getItem().subscribe(
       (ItemRespone:any) => {
         this.ItemData =ItemRespone;
-        console.log(this.ItemData[0].groups?.nameGroup)
+        console.log('ItemData',this.ItemData)
       }
     )
   }
@@ -61,7 +76,17 @@ getGruopName(){
     (ItemRespone:any) => {
       ItemRespone.forEach((data:any) => {
         this.GroupNameData.push(data);
-        console.log(this.GroupNameData)
+        console.log('GroupNameData :',this.GroupNameData)
+      });
+    }
+  )
+}
+getUnitName(){
+  this.Service.getUnit().subscribe(
+    (UnitRespone:any) => {
+      UnitRespone.forEach((data:any) => {
+        this.UnitNameData.push(data);
+        console.log('UnitNameData :',this.UnitNameData)
       });
     }
   )

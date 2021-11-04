@@ -5,6 +5,7 @@ import { CustomersComponent } from './Page/customers/customers.component';
 import { GroupsComponent } from './Page/groups/groups.component';
 import { ItemsComponent } from './Page/Items/items.component';
 import { NewInvoiceComponent } from './Page/new-invoice/new-invoice.component';
+import { PurchaseComponent } from './Page/purchase/purchase.component';
 import { SalesComponent } from './Page/sales/sales.component';
 import { StoreComponent } from './Page/store/store.component';
 import { SuppliersComponent } from './Page/suppliers/suppliers.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'supplier', component: SuppliersComponent},
   {path: 'customer', component: CustomersComponent},
   {path: 'store', component: StoreComponent},
+  {path: 'purchase', component: PurchaseComponent},
   {path: 'sale', component: SalesComponent}
 
 

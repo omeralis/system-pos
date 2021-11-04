@@ -1,0 +1,255 @@
+<div class="d-flex justify-content-between title">
+    <h6>Purchase</h6>
+    <div class="  m-1" placement="top" ngbTooltip="Add New Suppliers">
+        <fa-icon icon="plus" (click)="open(content)"></fa-icon>
+    </div>
+</div>
+<div class="content-table">
+    <table class="table-content mt-2">
+        <thead>
+            <tr>
+                <th>
+                    <h1>#</h1>
+                </th>
+                <th>
+                    <h1>Store No.</h1>
+                </th>
+                <th>
+                    <h1>Purchase No.</h1>
+                </th>
+                <th>
+                    <h1>Purchase Date
+                    </h1>
+                </th>
+                <th>
+                    <h1>Item
+                    </h1>
+                </th>
+                <th>
+                    <h1>Supplier
+                    </h1>
+                </th>
+                <th>
+                    <h1>Quantity
+                    </h1>
+                </th>
+                <th>
+                    <h1>Alarm Quantity
+                    </h1>
+                </th>
+                <th>
+                    <h1>cost
+                    </h1>
+                </th>
+                <th>
+                    <h1>price
+                    </h1>
+                </th>
+
+                <th>
+                    <h1>Edit </h1>
+                </th>
+            </tr>
+        </thead>
+        <!-- <tbody>
+        <tr *ngFor="let Data of StoreData let i = index;">
+            <td>{{i +1 }}</td>
+            <td>{{Data.id}}</td>
+            <td>{{Data.purchaseNo}}</td>
+            <td>{{Data.purchaseDate}}</td>
+            <td>{{Data.items_store?.itemName}}</td>
+            <td>{{Data.supplier_store?.supplierName}}</td>
+            <td>{{Data.quantity}}</td>
+            <td>{{Data.alarmQuantity}}</td>
+            <td>{{Data.cost}}</td>
+            <td>{{Data.priceItem}}</td>
+            <td>
+              <fa-icon icon="edit" (click)="openEdit(Data)"></fa-icon>
+            </td>
+        </tr>
+    </tbody> -->
+    </table>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">New Purchase</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Store</label>
+            <div class="col-sm-10 mt-2">
+                <ng-select [items]="StoreData" bindLabel="storeName" bindValue="id">
+                </ng-select>
+            </div>
+            <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Suppliers</label>
+            <div class="col-sm-10 mt-2">
+                <ng-select [items]="SupplierData" bindLabel="supplierName" bindValue="id">
+                </ng-select>
+            </div>
+            <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Item</label>
+            <div class="col-sm-10 mt-2">
+                <ng-select [items]="ItemData" bindLabel="itemName" bindValue="id"  (change)="addList(ItemData)">
+                </ng-select>
+            </div>
+            <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Date Purchase</label>
+            <div class="col-sm-10 mt-2">
+                <input type="date" class="form-control" id="" autocomplete="off" 
+                   />
+             </div>
+        </div>
+        <div class="form-group row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>item</th>
+                        <th>quantity</th>
+                        <th>cost</th>
+                        <th>Total Cost</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of Tablelist  let i = index;">
+                        <td>
+                          <input type="text" class="form-control form-control-sm" [(value)]="data[0].itemName"
+                          name="itemName" disabled />
+                        </td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary">
+                                    <fa-icon icon="minus"></fa-icon>
+                                </button>
+                                <input  type="number" class="form-control" id="" min="0" [value]="data.quantity"
+                                    name="quantity" >
+                                <button type="button" class="btn btn-outline-primary"
+                                    >
+                                    <fa-icon icon="plus"></fa-icon>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" [(value)]="data[0].priceItem"
+                          name="itemName" disabled />
+                        </td>
+                        <td>
+                          {{TotalCost}}
+                          <!-- <input type="number" class="form-control form-control-sm" [(value)]="data[0].cost"
+                          name="itemName" disabled /> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</ng-template>
+<!-- <ng-template #EditModel let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="UpdataForm" (ngSubmit)="EditStore()" >
+            <div class="form-group row">
+              <label for="inputGroup" class="col-sm-2 col-form-label">purchase No.</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="purchaseNo" autocomplete="off" formControlName="purchaseNo"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.purchaseNo.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.purchaseNo.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.purchaseNo.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label">purchase Date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control" id="purchaseDate" autocomplete="off" formControlName="purchaseDate"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.purchaseDate.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.purchaseDate.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.purchaseDate.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Item</label>
+              <div class="col-sm-10 mt-2">
+              <ng-select [items]="items_store"
+                bindLabel="itemName"
+                bindValue="id"
+                formControlName="itemNo">
+              </ng-select>
+                <div *ngIf="submittedAdd && addSaveValid.itemNo.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.itemNo.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label mt-2">Suppliers</label>
+              <div class="col-sm-10 mt-2">
+              <ng-select [items]="supplier_store"
+                bindLabel="supplierName"
+                bindValue="id"
+                formControlName="supplierNo">
+              </ng-select>
+                <div *ngIf="submittedAdd && addSaveValid.supplierNo.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.supplierNo.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label">Quantity</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="quantity" autocomplete="off" formControlName="quantity"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.quantity.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.quantity.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.quantity.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label">Alarm Quantity</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="alarmQuantity" autocomplete="off" formControlName="alarmQuantity"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.alarmQuantity.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.alarmQuantity.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.alarmQuantity.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label">Cost </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="cost" autocomplete="off" formControlName="cost"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.cost.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.cost.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.cost.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <label for="inputGroup" class="col-sm-2 col-form-label">price Item</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="priceItem" autocomplete="off" formControlName="priceItem"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.priceItem.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.priceItem.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.priceItem.errors.required"> Name is required</div>
+                </div>
+              </div> 
+              <label for="inputGroup" class="col-sm-2 col-form-label">Other</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="other" autocomplete="off" formControlName="other"
+                [ngClass]="{ 'is-invalid': submittedAdd && addSaveValid.other.errors }"
+                />
+                <div *ngIf="submittedAdd && addSaveValid.other.errors" class="invalid-feedback">
+                   <div *ngIf="addSaveValid.other.errors.required"> Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">Save
+                <span *ngIf="isLoadingSave" style="color: white;"
+                class="spinner-border spinner-border-sm" role="status"
+                aria-hidden="true"> </span>
+              </button>
+            </div>
+          </form>
+    </div>
+  </ng-template> -->

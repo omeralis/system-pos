@@ -1,48 +1,85 @@
+<style>
 
+
+</style>
 <div class="content">
     <div class="row">
         <div class="col-7">
             <div class="box-content">
-                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" >
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 
                     <li [ngbNavItem]="0">
-                      <a ngbNavLink>
-                        <fa-icon icon="tags"></fa-icon>  
-                        All
-                      </a>
-                      <ng-template ngbNavContent>
-                          <div class="row d-flex box-content-item">
-                            <div class="col-3">
-                                <div class="card">
-                                    <p>Item 1</p>
+                        <a ngbNavLink>
+                            <fa-icon icon="tags"></fa-icon>
+                            All
+                        </a>
+                        <ng-template ngbNavContent>
+                            <div class="row d-flex box-content-item">
+                                <div class="col-3  mr-4" *ngFor="let item of AllItemData let i = index;">
+                                    <div class="card box-card" (click)="addToCart(item)">
+                                        {{item.itemName}}
+                                        <h6 *ngFor="let items of item?.store_item let i = index;">
+                                            ${{ items.priceItem | number : '1.2-2'}}
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
-                          </div>
-                      </ng-template>
+                        </ng-template>
                     </li>
 
-                    <li  *ngFor="let Data of ItemOfgroupData let i = index;" [ngbNavItem]="i+1">
-                      <a ngbNavLink>
-                        <fa-icon icon="tags"></fa-icon>  
-                        {{Data.nameGroup}}
-                     </a>
-                      <ng-template ngbNavContent>
-                          <div class=" d-flex" >
-                            <div class="col-3 mr-4"  *ngFor="let item of Data?.items"> 
-                                <div class="card " (click)="addToCart(item)">
-                                    {{item.itemName}}
+                    <li *ngFor="let Data of ItemOfgroupData let i = index;" [ngbNavItem]="i+1">
+                        <a ngbNavLink>
+                            <fa-icon icon="tags"></fa-icon>
+                            {{Data.nameGroup}}
+                        </a>
+                        <ng-template ngbNavContent>
+                            <div class=" d-flex">
+                                <div class="col-3  mr-4" *ngFor="let item of Data?.items">
+                                    <div class="box-card card" (click)="addToCart(item)">
+                                        <p> {{item.itemName}}</p>
+                                        <h6 *ngFor="let items of item?.store_item let i = index;">
+                                            ${{ items.priceItem | number : '1.2-2'}}
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
-                          </div>
-                      
-                      </ng-template>
+
+                        </ng-template>
                     </li>
                 </ul>
                 <div [ngbNavOutlet]="nav" class="mt-2"></div>
-            </div>   
+            </div>
         </div>
         <div class="col-4">
-            <div class="card" style="width: 100%;height: 70vh;overflow: auto;">
+            <div class="card pt-0" style="width: 100%;height: 70vh;overflow: auto;">
+                <div class="row">
+                    <div class="col-6 pb-2">
+                        <form [formGroup]="CustomerForm">
+                            <label for="inputGroup" class="col-form-label">Customer</label>
+                            <ng-select [items]="customer" bindLabel="customerName" bindValue="id" formControlName="id"
+                                [ngClass]="{ 'ng-invalid': addCustomerValid.id.touched && addCustomerValid.id.errors }">
+                            </ng-select>
+                            <div *ngIf="addCustomerValid.id.touched && addCustomerValid.id.errors">
+                                <div class="v-meassage" *ngIf="addCustomerValid.id.errors.required">
+                                    Filed Customer is Required
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6 pb-2">
+                        <form [formGroup]="StoreForm">
+                            <label for="inputGroup" class="col-form-label">Store</label>
+                            <ng-select [items]="StoreData" bindLabel="id" bindValue="id" formControlName="id"
+                                [ngClass]="{ 'ng-invalid': addStoreValid.id.touched && addStoreValid.id.errors }">
+                            </ng-select>
+                            <div *ngIf="addStoreValid.id.touched && addStoreValid.id.errors">
+                                <div class="v-meassage" *ngIf="addStoreValid.id.errors.required">
+                                    Filed Store is Required
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <table class="">
                     <thead>
                         <tr>
@@ -54,74 +91,53 @@
                         </tr>
                     </thead>
                     <tbody>
-                             <tr  *ngFor="let cart of cartlist let i = index;">
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.itemName" name="itemName"    /> 
-                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.id" name="itemNo"  hidden  /> 
-                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.orderId" name="orderId"  hidden  /> 
-                                </td>
-                                <td style="width: 30%;">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <fa-icon icon="minus"></fa-icon>
-                                        </button>
-                                        <input type="number" class="form-control" id="" [(value)]="cart.quantity" name="quantity"  disabled  >
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <fa-icon icon="plus"></fa-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td> <input type="number" class="form-control" id="unitPrice" [(value)]="cart.unitPrice" name="unitPrice" disabled ></td>
-                                <td> <input type="number" class="form-control" id="subTotal" [(value)]="cart.subTotal" name="subTotal" disabled ></td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
-                                        <fa-icon icon="trash"></fa-icon>
+                        <tr *ngFor="let cart of cartlist let i = index;">
+                            <td>
+                                <input type="text" class="form-control form-control-sm" [(value)]="cart.itemName"
+                                    name="itemName" disabled />
+                                <input type="text" class="form-control form-control-sm" [(value)]="cart.itemNo"
+                                    name="itemNo" hidden />
+                            </td>
+                            <td style="width: 30%;">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-primary" (click)="changeQntymin(cart)">
+                                        <fa-icon icon="minus"></fa-icon>
                                     </button>
-                                </td>
-                            </tr>
-                          
-                                <!-- <ng-container formArrayName="data">
-                                    <ng-container *ngFor="let data of dataControls.controls; let i = index" [formGroupName]="i">
-                                <td>
-                                    <input type="number" class="form-control form-control-sm" [value]="cart.itemNo" formControlName="itemNo" /> 
-                                </td>
-                                <td style="width: 30%;">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary"> 
-                                            <fa-icon icon="minus"></fa-icon>
-                                        </button>
-                                        <input type="number" class="form-control" id="" [value]="cart.quantity"   formControlName="quantity">
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <fa-icon icon="plus"></fa-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td> <input type="number" class="form-control" id="unitPrice"  [value]="cart.unitPrice"    formControlName="unitPrice"></td>
-                                <td> <input type="number" class="form-control" id="subTotal"  [value]="cart.subTotal"   formControlName="subTotal"></td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
-                                        <fa-icon icon="trash"></fa-icon>
+                                    <input #qnt type="number" class="form-control" id="" min="0" [value]="cart.quantity"
+                                        name="quantity" (change)="changeQnty(cart,qnt.value)">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        (click)="changeQntyPlus(cart)">
+                                        <fa-icon icon="plus"></fa-icon>
                                     </button>
-                                </td>
-                                    </ng-container>
-                                </ng-container> 
-                          
-                            </tr> -->
+                                </div>
+                            </td>
+                            <td> <input type="number" class="form-control" id="unitPrice" [(value)]="cart.unitPrice"
+                                    name="unitPrice" disabled></td>
+                            <td> <input type="number" class="form-control" id="subTotal" [(value)]="cart.subTotal"
+                                    name="subTotal" disabled></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
+                                    <fa-icon icon="trash"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <div class="card" style="width: 100%; height: 15vh;">
                 <table>
                     <tr>
-                        <th class="p-2">Total:</th>
-                        <td class="pr-2 w-100px">100</td>
+                        <th class="p-2 w-25">Total:</th>
+                        <td class="pr-2 w-100px">
+                            <h5> <span>$</span> {{Total | number : '1.2-2'}}</h5>
+                        </td>
                     </tr>
                 </table>
                 <div class="d-flex mt-4">
-                    <button type="button" class="btn btn-outline-danger w-100 mr-2">
+                    <button type="button" class="btn btn-outline-danger w-100 mr-2" (click)="ResetToCart()">
                         Cancel
                         <fa-icon icon="times"></fa-icon>
-                    </button>   
+                    </button>
                     <button type="button" class="btn btn-outline-primary w-100" (click)="AddIOrder()">
                         Purchase
                         <fa-icon icon="shopping-bag"></fa-icon>
@@ -131,3 +147,59 @@
         </div>
     </div>
 </div>
+
+<ng-template #contentvoucher let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title m-auto" id="modal-basic-title">Sales Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-6">
+                <h6> <span> Order No. :</span> {{OrderNo}}</h6>
+            </div>
+            <div class="col-6 d-flex flex-row-reverse">
+                <h6> <span> Date : </span> {{SaleDate }}</h6>
+            </div>
+            <div class="col-6">
+                <h6> <span>Customer : </span> {{customerName}}</h6>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>SubTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of voucherSales let i = index;">
+                    <td>{{data.item_lines_order.itemName}}</td>
+                    <td>{{data.unitPrice | number : '1.2-2'}}</td>
+                    <td>{{data.quantity}}</td>
+                    <td>{{data.subTotal | number : '1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table-footer">
+            <tr>
+                <th>Total : </th>
+                <td>${{invoiceTotle | number : '1.2-2'}}</td>
+            </tr>
+            <tr>
+                <th>Employee : </th>
+                <td>Omer Ali</td>
+            </tr>
+        </table>
+        <!-- <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Print</button>
+        </div> -->
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <h6 > @OmerAli</h6>
+    </div>
+</ng-template>
