@@ -17,6 +17,7 @@ export class PurchaseComponent implements OnInit {
   SupplierData: SUPPLIERS[] = [];
   ItemData: ITEMS[] = [];
   Tablelist: any = [];
+  PurchaseData:any = []
   isLoadingSave: boolean = false;
   TotalCost = 0;
   myDate : any;
@@ -28,6 +29,7 @@ export class PurchaseComponent implements OnInit {
     this.getStoreName();
     this.getSupplierName();
     this.getItemName();
+    this.GetPurchase();
   }
   PurchaseStoreForm = new FormGroup({
     id: new FormControl(null),
@@ -111,7 +113,13 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
-
+  GetPurchase(){
+    this.Service.getPurchase().subscribe(
+      (PurchaseRespone:any)=>{
+        this.PurchaseData = PurchaseRespone;
+        console.log('data :' , this.PurchaseData);
+    })
+  }
   AddPurchase(){
     this.isLoadingSave = true;
     let PurchaseToPost: any = {
@@ -123,9 +131,9 @@ export class PurchaseComponent implements OnInit {
     };
     console.log('purchaseDate' , PurchaseToPost)
       this.Service.postPurchase(PurchaseToPost).subscribe(
-        (OrderRespone) => {
+        (PurchaseRespone) => {
         this.isLoadingSave = false;
-          this.resultPurchase = OrderRespone;
+          this.resultPurchase = PurchaseRespone;
           console.log('this.resultPurchase :' , this.resultPurchase )
         },
         (error) => {
@@ -137,6 +145,8 @@ export class PurchaseComponent implements OnInit {
           this.PurchaseStoreForm.reset();
           this.PurchaseSupplierForm.reset();
           this.PurchaseForm.reset();
+          this.GetPurchase();
+          this.modalService.dismissAll();
              }
       );
     }

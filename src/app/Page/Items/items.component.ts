@@ -20,6 +20,7 @@ export class ItemsComponent implements OnInit {
   isLoadingSave: boolean = false;
   responseMessage:any;
   UpdataForm: FormGroup | any;
+  imageSrc: any;
   constructor( public Service: ServicesService ,private modalService: NgbModal,private formBuilder: FormBuilder,) { }
 
   ItemForm = new FormGroup({
@@ -32,7 +33,8 @@ export class ItemsComponent implements OnInit {
     special: new FormControl(null,[Validators.required]),
     priceItem: new FormControl(null,[Validators.required]),
     Image: new FormControl(null)
-  })
+  });
+ 
   private EditForm(): void {
     this.UpdataForm = this.formBuilder.group({
       id: [""],
@@ -52,6 +54,23 @@ export class ItemsComponent implements OnInit {
     this.getGruopName();
     this.getUnitName();
     this.EditForm();
+  }
+ 
+  onFileChange(event:any) {
+    const reader = new FileReader();
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      console.log('reader' ,reader);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        console.log('this.imageSrc ' , this.imageSrc );
+         this.ItemForm.patchValue({
+          fileSource: reader.result
+        });
+        console.log('this.imageSrc ' , this.ItemForm );
+      };
+    }
   }
   open(content: any) {
     this.modalService.open(content);
@@ -92,6 +111,7 @@ getUnitName(){
   )
 }
   AddItem(){
+    console.log('form' , this.ItemForm);
     this.isLoadingSave = true;
     this.submittedAdd = true;
     this.Service.postItem(this.ItemForm.value).subscribe(

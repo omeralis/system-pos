@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadModule } from "ng2-file-upload";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,7 +48,8 @@ import { PurchaseComponent } from './Page/purchase/purchase.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    FileUploadModule
   
   ],
   providers: [],

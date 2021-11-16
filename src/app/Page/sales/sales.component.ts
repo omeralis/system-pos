@@ -34,6 +34,8 @@ export class SalesComponent implements OnInit {
   SaleDate:order|undefined;
   OrderNo:any;
   invoiceTotle = 0;
+  SumQut:any;
+  ItemNOSum:any;
   constructor(private modalService: NgbModal, public Service: ServicesService, private fb: FormBuilder ,private validatorsService:ValidatorsService) {
    }
   ngOnInit(): void {
@@ -64,16 +66,19 @@ export class SalesComponent implements OnInit {
   getAllItem() {
     this.Service.getItem().subscribe((GroupRespone: any) => {
       this.AllItemData = GroupRespone;
+      console.log('AllItemData' ,this.AllItemData)
     });
   }
   getItemOfGroup() {
     this.Service.getItemOFGroups().subscribe((GroupRespone: any) => {
       this.ItemOfgroupData = GroupRespone;
+      console.log('ItemOfgroupData' , this.ItemOfgroupData)
     });
   }
   GetCustomer() {
     this.Service.getCustomer().subscribe((GroupRespone: any) => {
       this.customer = GroupRespone;
+      console.log(this.customer)
     });
   }
   GetStore() {
@@ -111,27 +116,42 @@ export class SalesComponent implements OnInit {
       this.Total += cart.subTotal;
     });
   }
+  getSumQut(itemNo: any){
+    this.Service.postgetsumQut(itemNo).subscribe((Response)=>{
+      this.ItemNOSum = Response;
+      console.log('ItemNOSum' , this.ItemNOSum);
+    })
+  }
   addToCart(cartToAdd: any) {
+    this.getSumQut(cartToAdd.id)
+    console.log('cartToAdd :' ,cartToAdd);
     if (this.cartlist.length == 0) {
       cartToAdd.quantity = 1;
-      cartToAdd.unitPrice = cartToAdd.store_item[0].priceItem;
+      cartToAdd.unitPrice = cartToAdd.priceItem;
       cartToAdd.subTotal = cartToAdd.quantity * cartToAdd.unitPrice;
-      cartToAdd.itemNo = cartToAdd.store_item[0].itemNo;
+      cartToAdd.itemNo = cartToAdd.id;
       this.cartlist.push(cartToAdd);
       this.calculateTotal();
     } else {
       for (let i = 0; i < this.cartlist.length; i++) {
         if (this.cartlist[i].id == cartToAdd.id) {
-          this.cartlist[i].quantity += 1;
+
+
+          if (this.ItemNOSum ==  this.cartlist[i].quantity) {
+            alert('Qut = Sum');
+          } else {
+            this.cartlist[i].quantity += 1;
+          }
+
           cartToAdd.subTotal = cartToAdd.quantity * cartToAdd.unitPrice;
           this.calculateTotal();
           break;
         }
-        else if (this.cartlist[i].itemNo != cartToAdd.itemNo && i + 1 == this.cartlist.length) {
+        else if (this.cartlist[i].id != cartToAdd.id && i + 1 == this.cartlist.length) {
           cartToAdd.quantity = 1;
-          cartToAdd.unitPrice = cartToAdd.store_item[0].priceItem;
+          cartToAdd.unitPrice = cartToAdd.priceItem;
           cartToAdd.subTotal = cartToAdd.quantity * cartToAdd.unitPrice;
-          cartToAdd.itemNo = cartToAdd.store_item[0].itemNo;
+          cartToAdd.itemNo = cartToAdd.id;
           this.cartlist.push(cartToAdd);
           this.calculateTotal();
           break;
@@ -166,9 +186,9 @@ export class SalesComponent implements OnInit {
     };
     this.Service.postOrdersave(orderToPost).subscribe(
       (OrderRespone) => {
-        // console.log(OrderRespone);
+        console.log(OrderRespone);
         this.resultSales = OrderRespone;
-        // console.log('voucherSales :', this.resultSales)
+        console.log('voucherSales :', this.resultSales)
       },
       (error) => {
         console.log(error);

@@ -1,11 +1,7 @@
-<style>
-
-
-</style>
 <div class="content">
     <div class="row">
-        <div class="col-7">
-            <div class="box-content">
+        <div class="col-lg-7 col-md-12 col-sm-12 ">
+            <div class="box-content content-table">
                 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 
                     <li [ngbNavItem]="0">
@@ -15,12 +11,15 @@
                         </a>
                         <ng-template ngbNavContent>
                             <div class="row d-flex box-content-item">
-                                <div class="col-3  mr-4" *ngFor="let item of AllItemData let i = index;">
+                                <div class="col-lg-3  mr-4" *ngFor="let item of AllItemData let i = index;">
                                     <div class="card box-card" (click)="addToCart(item)">
+                                      <img src="{{item.Image}}" class="mb-1" width="100" height="90" alt="">
+                                     <div class="card-footer d-flex justify-content-between">
                                         {{item.itemName}}
-                                        <h6 *ngFor="let items of item?.store_item let i = index;">
-                                            ${{ items.priceItem | number : '1.2-2'}}
+                                        <h6>
+                                          ${{ item.priceItem | number : '1.2-2'}}
                                         </h6>
+                                     </div>
                                     </div>
                                 </div>
                             </div>
@@ -33,13 +32,16 @@
                             {{Data.nameGroup}}
                         </a>
                         <ng-template ngbNavContent>
-                            <div class=" d-flex">
-                                <div class="col-3  mr-4" *ngFor="let item of Data?.items">
+                            <div class="row d-flex">
+                                <div class="col-lg-3  mr-4" *ngFor="let item of Data?.items">
                                     <div class="box-card card" (click)="addToCart(item)">
-                                        <p> {{item.itemName}}</p>
-                                        <h6 *ngFor="let items of item?.store_item let i = index;">
-                                            ${{ items.priceItem | number : '1.2-2'}}
-                                        </h6>
+                                        <img src="{{item.Image}}" class="mb-1" width="100" height="90" alt="">
+                                        <div class="card-footer d-flex justify-content-between">
+                                           {{item.itemName}}
+                                            <h6>
+                                                ${{ item.priceItem | number : '1.2-2'}}
+                                            </h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -50,10 +52,10 @@
                 <div [ngbNavOutlet]="nav" class="mt-2"></div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 col-md-12 col-sm-12 ">
             <div class="card pt-0" style="width: 100%;height: 70vh;overflow: auto;">
                 <div class="row">
-                    <div class="col-6 pb-2">
+                    <div class="col-lg-6 pb-2">
                         <form [formGroup]="CustomerForm">
                             <label for="inputGroup" class="col-form-label">Customer</label>
                             <ng-select [items]="customer" bindLabel="customerName" bindValue="id" formControlName="id"
@@ -66,7 +68,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-6 pb-2">
+                    <div class="col-lg-6 pb-2">
                         <form [formGroup]="StoreForm">
                             <label for="inputGroup" class="col-form-label">Store</label>
                             <ng-select [items]="StoreData" bindLabel="id" bindValue="id" formControlName="id"
@@ -80,49 +82,55 @@
                         </form>
                     </div>
                 </div>
-                <table class="">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th>Sub Total</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cart of cartlist let i = index;">
-                            <td>
-                                <input type="text" class="form-control form-control-sm" [(value)]="cart.itemName"
-                                    name="itemName" disabled />
-                                <input type="text" class="form-control form-control-sm" [(value)]="cart.itemNo"
-                                    name="itemNo" hidden />
-                            </td>
-                            <td style="width: 30%;">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-primary" (click)="changeQntymin(cart)">
-                                        <fa-icon icon="minus"></fa-icon>
+                <div  class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th  scope="col">Item</th>
+                                <th  scope="col">Qty</th>
+                                <th scope="col">Price</th>
+                                <th  scope="col">Sub Total</th>
+                                <th  scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cart of cartlist let i = index;">
+                                <td scope="row">
+                                    <div style="display: flow-root;">
+                                        <img src="{{cart.Image}}" class="img-thumbnail" alt="" style=" height: 4vh; margin-left: 0.5rem ;">
+                                        <input type="text" class="form-control form-control-sm" [(value)]="cart.itemName"
+                                            name="itemName" disabled />
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" [(value)]="cart.itemNo"
+                                        name="itemNo" hidden />
+                                </td>
+                                <td scope="row">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-default btn-Qty" (click)="changeQntymin(cart)">
+                                            <fa-icon icon="minus"></fa-icon>
+                                        </button>
+                                        <input #qnt type="number" class="form-control input-Qty " id="" min="0" [value]="cart.quantity"
+                                            name="quantity" (change)="changeQnty(cart,qnt.value)">
+                                        <button type="button" class="btn btn-default btn-Qty"
+                                            (click)="changeQntyPlus(cart)">
+                                            <fa-icon icon="plus"></fa-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td scope="row"> <input type="number" class="form-control" id="unitPrice" [(value)]="cart.unitPrice"
+                                        name="unitPrice" disabled></td>
+                                <td scope="row"> <input type="number" class="form-control" id="subTotal" [(value)]="cart.subTotal"
+                                        name="subTotal" disabled></td>
+                                <td scope="row">
+                                    <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
+                                        <fa-icon icon="trash"></fa-icon>
                                     </button>
-                                    <input #qnt type="number" class="form-control" id="" min="0" [value]="cart.quantity"
-                                        name="quantity" (change)="changeQnty(cart,qnt.value)">
-                                    <button type="button" class="btn btn-outline-primary"
-                                        (click)="changeQntyPlus(cart)">
-                                        <fa-icon icon="plus"></fa-icon>
-                                    </button>
-                                </div>
-                            </td>
-                            <td> <input type="number" class="form-control" id="unitPrice" [(value)]="cart.unitPrice"
-                                    name="unitPrice" disabled></td>
-                            <td> <input type="number" class="form-control" id="subTotal" [(value)]="cart.subTotal"
-                                    name="subTotal" disabled></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger" (click)="removeToCart(cart)">
-                                    <fa-icon icon="trash"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
             </div>
             <div class="card" style="width: 100%; height: 15vh;">
                 <table>
@@ -133,7 +141,7 @@
                         </td>
                     </tr>
                 </table>
-                <div class="d-flex mt-4">
+                <div class="d-flex">
                     <button type="button" class="btn btn-outline-danger w-100 mr-2" (click)="ResetToCart()">
                         Cancel
                         <fa-icon icon="times"></fa-icon>
@@ -157,13 +165,13 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6">
                 <h6> <span> Order No. :</span> {{OrderNo}}</h6>
             </div>
-            <div class="col-6 d-flex flex-row-reverse">
+            <div class="col-lg-6 d-flex flex-row-reverse">
                 <h6> <span> Date : </span> {{SaleDate }}</h6>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6">
                 <h6> <span>Customer : </span> {{customerName}}</h6>
             </div>
         </div>

@@ -41,13 +41,15 @@ export class ServicesService {
       edit: 'editstore'
     },
     purchaseRoute:{
-      purchase: 'purchase'
+      purchase: 'purchase',
+      purchaseline:'purchaseline'
     },
     orderRoute:{
       sales: 'order',
       salesline: 'orderline',
       ordersave: 'ordersave',
-      Invoic:'invoic'
+      Invoic:'invoic',
+      sumQut:'getqut'
     }
   }
 
@@ -122,8 +124,13 @@ postStore(StoreData: STORE) {
 EditStore(StoreData: STORE) {
   return this.http.post(this.url + this.ApiRoutes.storeRoute.edit, StoreData);
 }
+//Purchase
 postPurchase(PurchaseData: any){
   return this.http.post(this.url + this.ApiRoutes.purchaseRoute.purchase , PurchaseData);
+}
+
+getPurchase() {
+  return this.http.get(this.url + this.ApiRoutes.purchaseRoute.purchaseline);
 }
 //Sales
 postSales(SalesData: order) {
@@ -136,7 +143,9 @@ postOrdersave(SalesLineData: any) {
   return this.http.post(this.url + this.ApiRoutes.orderRoute.ordersave, SalesLineData);
 }
 postInvoice(orderId: any) {
-
   return this.http.post(this.url + this.ApiRoutes.orderRoute.Invoic, {orderId: orderId});
+}
+postgetsumQut(item: any) {
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.sumQut, {item: item});
 }
 }

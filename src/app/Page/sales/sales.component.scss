@@ -1,17 +1,32 @@
 .card 
 {
-    width: 18rem;
-    height: 10vh;
+    width: 17rem;
+    height: 20vh;
     padding: 1rem;
     margin: 0.1rem;
     box-shadow: 1px 5px 24px 0 rgb(68 102 242 / 5%);
 }
-
-.box-card:hover 
+.card-footer 
 {
-    cursor: pointer !important;
-    background: #dddddd3b !important;
+    background-color: rgb(255 255 255) !important;
 }
+.btn-Qty{
+    border: 1px solid #f2f3f8;
+    background: #f2f3f8;
+     height: 2rem;
+    line-height: 1;
+}
+.input-Qty {
+    height: 2rem;
+        border: none !important;
+        background: #f2f3f8;
+        margin-left: -1px;
+}
+// .box-card:hover 
+// {
+//     cursor: pointer !important;
+//     background: #dddddd3b !important;
+// }
 .content 
 {
     position: fixed;
@@ -48,7 +63,7 @@ td
 }
 .btn-group .form-control 
 {
-    border: 1px solid #7e858b61 !important;
+    border: 1px solid #7e858b61;
     border-radius: 0 !important;
 }
 .nav-tabs .nav-link.active,
@@ -59,11 +74,11 @@ td
     border-color: none !important;
     border-bottom: #093360 1px solid;
 }
-li.nav-item 
-{
-    width: 10%;
-    text-align: center;
-}
+// li.nav-item 
+// {
+//     width: 10%;
+//     text-align: center;
+// }
 .form-control:disabled, 
 .form-control[readonly] 
 {
