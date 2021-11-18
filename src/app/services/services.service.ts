@@ -49,7 +49,7 @@ export class ServicesService {
       salesline: 'orderline',
       ordersave: 'ordersave',
       Invoic:'invoic',
-      sumQut:'getqut'
+      sumQut:'qutstor'
     }
   }
 
@@ -145,7 +145,7 @@ postOrdersave(SalesLineData: any) {
 postInvoice(orderId: any) {
   return this.http.post(this.url + this.ApiRoutes.orderRoute.Invoic, {orderId: orderId});
 }
-postgetsumQut(item: any) {
-  return this.http.post(this.url + this.ApiRoutes.orderRoute.sumQut, {item: item});
+postgetsumQut(store: any) {
+  return this.http.post(this.url + this.ApiRoutes.orderRoute.sumQut, {store: store});
 }
 }

@@ -36,6 +36,7 @@ export class SalesComponent implements OnInit {
   invoiceTotle = 0;
   SumQut:any;
   ItemNOSum:any;
+  selectedStor = null;
   constructor(private modalService: NgbModal, public Service: ServicesService, private fb: FormBuilder ,private validatorsService:ValidatorsService) {
    }
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class SalesComponent implements OnInit {
     this.GetStore();
     this.myDataTime();
     this.watchFormSubmit();
+    // this.getSumQut();
   }
 
   CustomerForm = new FormGroup({
@@ -66,19 +68,19 @@ export class SalesComponent implements OnInit {
   getAllItem() {
     this.Service.getItem().subscribe((GroupRespone: any) => {
       this.AllItemData = GroupRespone;
-      console.log('AllItemData' ,this.AllItemData)
+      // console.log('AllItemData' ,this.AllItemData)
     });
   }
   getItemOfGroup() {
     this.Service.getItemOFGroups().subscribe((GroupRespone: any) => {
       this.ItemOfgroupData = GroupRespone;
-      console.log('ItemOfgroupData' , this.ItemOfgroupData)
+      // console.log('ItemOfgroupData' , this.ItemOfgroupData)
     });
   }
   GetCustomer() {
     this.Service.getCustomer().subscribe((GroupRespone: any) => {
       this.customer = GroupRespone;
-      console.log(this.customer)
+      // console.log(this.customer)
     });
   }
   GetStore() {
@@ -116,14 +118,22 @@ export class SalesComponent implements OnInit {
       this.Total += cart.subTotal;
     });
   }
-  getSumQut(itemNo: any){
-    this.Service.postgetsumQut(itemNo).subscribe((Response)=>{
+  getSumQut(data:any){
+    // console.log(data);
+    this.Service.postgetsumQut(data).subscribe((Response)=>{
       this.ItemNOSum = Response;
-      console.log('ItemNOSum' , this.ItemNOSum);
+      console.log('sum' , this.ItemNOSum);
+      let totle =0;
+      this.ItemNOSum.filter((word:any) => {
+        if (word.item == 1) {
+          let sum = totle+= word.quantity
+         console.log('sum :' , sum);
+        }
+      });
     })
   }
   addToCart(cartToAdd: any) {
-    this.getSumQut(cartToAdd.id)
+    // this.getSumQut(cartToAdd.id)
     console.log('cartToAdd :' ,cartToAdd);
     if (this.cartlist.length == 0) {
       cartToAdd.quantity = 1;
@@ -135,14 +145,11 @@ export class SalesComponent implements OnInit {
     } else {
       for (let i = 0; i < this.cartlist.length; i++) {
         if (this.cartlist[i].id == cartToAdd.id) {
-
-
           if (this.ItemNOSum ==  this.cartlist[i].quantity) {
             alert('Qut = Sum');
           } else {
             this.cartlist[i].quantity += 1;
           }
-
           cartToAdd.subTotal = cartToAdd.quantity * cartToAdd.unitPrice;
           this.calculateTotal();
           break;

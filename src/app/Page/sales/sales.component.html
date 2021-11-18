@@ -71,8 +71,8 @@
                     <div class="col-lg-6 pb-2">
                         <form [formGroup]="StoreForm">
                             <label for="inputGroup" class="col-form-label">Store</label>
-                            <ng-select [items]="StoreData" bindLabel="id" bindValue="id" formControlName="id"
-                                [ngClass]="{ 'ng-invalid': addStoreValid.id.touched && addStoreValid.id.errors }">
+                            <ng-select #idstor [items]="StoreData" bindLabel="id" bindValue="id" formControlName="id"  [(ngModel)]="selectedStor"
+                                [ngClass]="{ 'ng-invalid': addStoreValid.id.touched && addStoreValid.id.errors }" (change)="getSumQut(selectedStor)">
                             </ng-select>
                             <div *ngIf="addStoreValid.id.touched && addStoreValid.id.errors">
                                 <div class="v-meassage" *ngIf="addStoreValid.id.errors.required">
